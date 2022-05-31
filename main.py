@@ -1,3 +1,8 @@
+"""
+    @py:自动体温填报
+    @author:iCdo_X.
+    @注：本脚本仅为个人提供技术经验！
+"""
 import random
 import requests
 import datetime
@@ -5,6 +10,7 @@ import re
 import smtplib
 from email.mime.text import MIMEText
 from email.utils import formataddr
+
 # 邮箱发送
 def mail(answer, my_user):
     my_sender = '*************'  # 发件人邮箱账号
@@ -46,7 +52,7 @@ if __name__ == '__main__':
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36 Edg/99.0.1150.39'
     }
-# 获取用户 cookie 值
+    # 获取用户 cookie 值
     cookies_id = []
     for i in range(0, len(email)):
         data_1 = { # 用户登陆数据
@@ -59,14 +65,15 @@ if __name__ == '__main__':
         session.post(url=url_1, data=data_1)
         cookies_id.append(str(session.cookies.get_dict()['CenterSoftWeb']))
     chose = 0
-# 填报
+    # 填报
     for i in cookies_id:
         timeper = random.randint(1,9)
         now = datetime.datetime.now()
         cookie = {
             'CenterSoftWeb':str(i)
         }
-        data_2 = { # 体温信息
+        # 体温信息
+        data_2 = { 
             'TimeNowHour':str(now.hour),
             'TimeNowMinute':str(now.minute),
             'Temper1':'36',
